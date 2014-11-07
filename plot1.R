@@ -22,6 +22,9 @@
 xwidth <- 480
 ywidth <- 480
 
+##TODO
+##convert Date and Time to unified value, and proper type, using strptime() and as.Date()
+
 
 hpc_sample <- read.table("household_power_consumption.txt", sep=";",header = TRUE, na.strings="?", nrows = 10)
 classes <- sapply(hpc_sample, class)
@@ -33,3 +36,18 @@ hpc <- read.table("household_power_consumption.txt", colClasses = classes, sep =
 colnames(hpc) <- colnames(hpc_sample)
 ## rm(hpc_sample)
 
+## hpc$DateTime <- 
+
+## Plot 1 is labeled Global Active Power
+## Plot 1 X is Global Active Power (kilowatts)
+## Plot 1 y is Frequency
+
+## hist(hpc$Global_active_power) ## almost perfect
+
+png("plot1.png") ## useful link: http://www.ats.ucla.edu/stat/r/faq/saving.htm
+hist(hpc$Global_active_power,
+     main = "Global Active Power",
+     xlab = "Global Active Power (kilowatts)",
+     ylab = "Frequency",
+     col = "RED")
+dev.off()
