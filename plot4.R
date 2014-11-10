@@ -1,8 +1,8 @@
-## plot3.R
+## plot4.R
 ##
 ## Adam Tannir
 ## Coursera Exploratory Data Analysis
-## Assignment 1, part 3
+## Assignment 1, part 4
 ##
 ##
 ## household power consumption for 2 days, 2007-02-01 and 2007-02-02.
@@ -35,20 +35,53 @@ colnames(hpc) <- colnames(hpc_sample)
 hpc$DateTime <- strptime(paste(hpc$Date,hpc$Time, sep=" " ), format = "%d/%m/%Y %H:%M:%S")
 hpc$DoW <- weekdays(strptime(paste(hpc$Date,hpc$Time, sep=" " ), format = "%d/%m/%Y %H:%M:%S"))
 
-## Plot 3 is not labeled
-## Plot 3 X is days of week
-## Plot 3 y is Global Active Power (kilowatts)
-## plot is a line graph, with 3 entries
 
-png("plot3.png", ## useful link: http://www.ats.ucla.edu/stat/r/faq/saving.htm
-  width = xwidth,
-  height = ywidth) ## slightly unintuitive names, esp for y which is height.
+## plot 4 contains 4 subgraphs, each in their own corner of the image.
+## first plot is identical to plot2.R (UL)
+## second is voltage over time (UR)
+## third is identical to plot3.R (LL)
+## fourth is global reactive power over time (LR)
 
+## divide into 4 with par(mfrow=c(2,2)) then successive plot commands
+
+png("plot4.png",
+    width = xwidth,
+    height = ywidth)
+
+## must put below device open or won't work.
+## only get 1 graph (last) otherwise.
+par(mfrow=c(2,2))
+
+## upper left
+plot(y = hpc$Global_active_power,
+     x = hpc$DateTime,
+     type = "l",
+     xlab = "", ## Thursday Friday Saturday, so need to manipulate the days of the week
+     ylab = "Global Active Power (kilowatts)",
+     cex = 0.5,
+     col = "black" ## in case it got changed somewhere while plotting
+)
+
+## upper right
+
+plot(y = hpc$Voltage,
+     x = hpc$DateTime,
+     type = "l",
+     xlab = "datetime", ## Thursday Friday Saturday, so need to manipulate the days of the week
+     ylab = "Voltage",
+     cex = 0.5,
+     col = "black" ## in case it got changed somewhere while plotting
+)
+
+
+
+## lower left
 plot(y = hpc$Sub_metering_1,
      x = hpc$DateTime,
      type = "l",
      xlab = "", ## Thursday Friday Saturday, so need to manipulate the days of the week
      ylab = "Energy sub metering",
+     cex = 0.5,
      col = "black"
 )
 
@@ -65,7 +98,19 @@ lines(y = hpc$Sub_metering_3,
 legend(x = "topright",
        legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
        lty = 1,
-       col = c("black", "red", "blue")
+       col = c("black", "red", "blue"),
+       cex = 0.6 ## scale text down       
        )
+
+## lower right
+
+plot(y = hpc$Global_reactive_power,
+     x = hpc$DateTime,
+     type = "l",
+     xlab = "datetime", ## Thursday Friday Saturday, so need to manipulate the days of the week
+     ylab = "Global_reactive_power",
+     cex = 0.5,
+     col = "black" ## in case it got changed somewhere while plotting
+)
 
 dev.off()
