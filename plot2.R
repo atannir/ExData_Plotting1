@@ -44,11 +44,13 @@ hpc$DoW <- weekdays(strptime(paste(hpc$Date,hpc$Time, sep=" " ), format = "%d/%m
 ## Plot 2 y is Global Active Power (kilowatts)
 ## plot is a line graph
 
-## hist(hpc$Global_active_power) ## almost perfect
+png("plot2.png", ## useful link: http://www.ats.ucla.edu/stat/r/faq/saving.htm
+    width = xwidth,
+    height = ywidth) ## slightly unintuitive names, esp for y which is height.
 
-png("plot2.png") ## useful link: http://www.ats.ucla.edu/stat/r/faq/saving.htm
-hist(hpc$Global_active_power,
-     main = "",
+plot(y = hpc$Global_active_power,
+     x = hpc$DateTime,
+     type = "l",
      xlab = "", ## Thursday Friday Saturday, so need to manipulate the days of the week
      ylab = "Global Active Power (kilowatts)",    
      )

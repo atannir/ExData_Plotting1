@@ -44,12 +44,12 @@ colnames(hpc) <- colnames(hpc_sample)
 
 ## hist(hpc$Global_active_power) ## almost perfect
 
-png(filename = "plot1.png", ## useful link: http://www.ats.ucla.edu/stat/r/faq/saving.htm
-    width = xwidth,
-    height = ywidth) ## slightly unintuitive names, esp for y which is height.
+#png(filename = "plot1.png", ## useful link: http://www.ats.ucla.edu/stat/r/faq/saving.htm
+#    width = xwidth,
+#    height = ywidth) ## slightly unintuitive names, esp for y which is height.
 hist(hpc$Global_active_power,
      main = "Global Active Power",
      xlab = "Global Active Power (kilowatts)",
      ylab = "Frequency",
      col = "RED")
-dev.off()
+#dev.off()
