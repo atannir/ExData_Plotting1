@@ -16,7 +16,7 @@
 ## hints for large files from http://www.biostat.jhsph.edu/~rpeng/docs/R-large-tables.html
 ##
 ## strptime(paste(hpc_sample[[1]][1],hpc_sample[[2]][1], sep=" " ), format = "%d/%m/%Y %H:%M:%S")
-##
+## strptime(paste(hpc_sample$Date,hpc_sample$Time, sep=" " ), format = "%d/%m/%Y %H:%M:%S")
 ##
 
 xwidth <- 480
@@ -36,7 +36,8 @@ hpc <- read.table("household_power_consumption.txt", colClasses = classes, sep =
 colnames(hpc) <- colnames(hpc_sample)
 ## rm(hpc_sample)
 
-## hpc$DateTime <- 
+hpc$DateTime <- strptime(paste(hpc$Date,hpc$Time, sep=" " ), format = "%d/%m/%Y %H:%M:%S")
+hpc$DoW <- weekdays(strptime(paste(hpc$Date,hpc$Time, sep=" " ), format = "%d/%m/%Y %H:%M:%S"))
 
 ## Plot 2 is not labeled
 ## Plot 2 X is days of week
@@ -49,7 +50,6 @@ png("plot2.png") ## useful link: http://www.ats.ucla.edu/stat/r/faq/saving.htm
 hist(hpc$Global_active_power,
      main = "",
      xlab = "", ## Thursday Friday Saturday, so need to manipulate the days of the week
-     ylab = "Global Active Power (kilowatts)",
-     ## col = "RED"
+     ylab = "Global Active Power (kilowatts)",    
      )
 dev.off()
